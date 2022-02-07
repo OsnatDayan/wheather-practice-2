@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY WEATHER PROJACT</title>
+    <style>
+        body {
+            text-align: center;
+            background-image: url(5-Best-Free-and-Paid-Weather-APIs-2019-e1587582023501.png);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <label>please enter your city</label>
+        <input type="text" id="cityName">
+    </div>
+    <div>
+        <select id="select">
+            <option value="standard">standard</option>
+            <option value="metric">metric</option>
+            <option value="imperial">imperial</option>
+        </select>
+    </div>
+    <button id="finish">SHOW ME THE TEMPERATURE</button>
+    <div id="temp"></div>
+
+
+    <script src="main.js"></script>
+    <script src="urlBuilder.js"></script>
+    <script src="citiesUrlObject.js"></script>
+    <script src="cityBuilder.js"></script>
+</body>
+
+</html>
