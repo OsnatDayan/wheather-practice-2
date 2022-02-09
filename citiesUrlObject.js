@@ -11,4 +11,3 @@ async function getCityWeather(city, data) {
 }
 
 
-

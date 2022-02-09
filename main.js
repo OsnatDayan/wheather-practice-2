@@ -2,7 +2,7 @@ const name1 = document.getElementById("cityName");
 const unit = document.getElementById("select");
 const inner = document.getElementById('temp');
 document.getElementById("finish").addEventListener('click', last);
-
+const CACHE_REFRESH = 60 * 60;
 
 const UNITS = {
     'standard': 'standard',
@@ -14,19 +14,26 @@ const UNITS = {
 
 function last(e) {
     e.preventDefault();
-    const city = cityUrl();
-    let degrees = unit.value
-    city.init(`e819dbb43ffeed20feeb93509c926733`);
-    city.addCity(name1.value);
-    city.chooseUnits(UNITS[degrees]);
-    let a = city.getCity();
-    let end = fetch(a).then(res => res.json()).then(res => {
-        var myObj = res;
-        getCityWeather(name1.value, myObj);
-        console.log(CACHE);
-        inner.innerHTML = `Now : ${res.main.temp}<br> Feels like : ${res.main.feels_like}`;
-    })
-};
+    let name2 = name1.value;
+    if (CACHE[name2] && (new Date - CACHE[name2].fetchTimestamp) / 1000 < CACHE_REFRESH) {
+        return CACHE[name2];
+    } else {
+        const city = cityUrl();
+        let degrees = unit.value
+        city.init(`e819dbb43ffeed20feeb93509c926733`);
+        city.addCity(name2);
+        city.chooseUnits(UNITS[degrees]);
+        let finish = city.getCity();
+        fetch(finish).then(res => res.json()).then(res => {
+            CACHE[name2] = new Citybuilder(res);
+            renderCity(CACHE[name2]);
 
+        }
+        )
+    }
+}
+function renderCity(x) {
+    inner.innerHTML = `Now : ${x.main.temp}<br> Feels like : ${x.main.feels_like}`;
+}
 
 
